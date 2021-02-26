@@ -20,7 +20,7 @@ object TempDSProc extends SparkSessionWrapper {
           .listFiles
           .filter(file => file.isFile && file.getName.endsWith(".jsonl"))
           .toList
-          .map(file => (file.getName.split("\\.jsonl")(0), file.toString))
+          .map(file => (file.getName.split("/.jsonl")(0), file.toString))
 
       Option(list)
     } else None
@@ -54,7 +54,7 @@ object TempDSProc extends SparkSessionWrapper {
   }
 
   def mergeDf(df: List[DataFrame]): DataFrame =
-    df.reduce(_ union _)
+    df.tail.foldLeft(df.head)(_ union _)
 
   def filesToSingleDf(path: String): DataFrame = {
     val fileList: Option[List[(String, String)]] = getFileList(path)

@@ -7,9 +7,9 @@ trait SparkSessionWrapper extends Serializable {
 
   lazy val spark: SparkSession =
     SparkSession
-      .builder()
+      .builder
+      .appName("embedded log4j test")
       .master("local[*]")
-      .appName("app")
       .getOrCreate()
 
   Logger.getLogger("org").setLevel(Level.OFF)

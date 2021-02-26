@@ -61,21 +61,24 @@ object Test5 extends App {
 //  res22.foreach(println)
 //  println(res22)
 
+  val t7 = System.currentTimeMillis()
+  val dirs = getArrayOfSubDirectories("/home/mike/res/tds_storage")
+  val res1 = getArrayOfLeafsByArrayOfDirs(dirs)
   val t8 = System.currentTimeMillis()
-  val files: List[String] = getFilesList("D:\\res\\megion\\test2")
-  val maxCount: Int = files.map(str => str.count(_ == '\\')).max
-  val endFiles: List[String] = files.filter(_.count(_ == '\\') == maxCount)
+
+  println(res1.mkString("Array(", ", ", ")"))
+  println(res1.length)
+  println(s"res1 = ${t8 - t7} ms")
+
   val t9 = System.currentTimeMillis()
-  println(t9 - t8)
-
-  val endFolders: List[String] = endFiles
-    .map(_.split("\\\\").toList)
-    .map(_.dropRight(1))
-    .map(_.mkString("\\"))
-    //650 -> 850
-    .distinct
-
+  val res2 = getEndFolders("/home/mike/res/tds_storage")
   val t10 = System.currentTimeMillis()
-  println(t10 - t9)
+
+  println(res2)
+  println(res2.length)
+  println(s"res2 = ${t10 - t9} ms")
+
+
+
 
 }

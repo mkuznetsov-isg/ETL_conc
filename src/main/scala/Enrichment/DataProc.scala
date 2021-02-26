@@ -348,13 +348,13 @@ object DataProc {
   // equals, + 30% execution time
   def getEndFolders(startDir: String): List[String] = {
     val files: List[String] = getFilesList(startDir)
-    val maxCount: Int = files.map(str => str.count(_ == '\\')).max
-    val endFiles: List[String] = files.filter(_.count(_ == '\\') == maxCount)
+    val maxCount: Int = files.map(str => str.count(_ == '/')).max
+    val endFiles: List[String] = files.filter(_.count(_ == '/') == maxCount)
 
     val endFolders: List[String] = endFiles
-      .map(_.split("\\\\").toList)
+      .map(_.split("/").toList)
       .map(_.dropRight(1))
-      .map(_.mkString("\\"))
+      .map(_.mkString("/"))
       .distinct
 //      .toSet
 
